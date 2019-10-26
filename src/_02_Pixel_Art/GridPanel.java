@@ -54,18 +54,19 @@ public class GridPanel extends JPanel{
 		Graphics g;
 		//5. Use the mouseX and mouseY variables to change the color
 		//   of the pixel that was clicked. *HINT* Use the pixel's dimensions.
-		for (int i = 0; i < cols; i++) {
-			if (i*windowWidth/cols <= mouseX && mouseX <= (i+1)*(windowWidth/cols)) {
-				for (int j = 0; j < rows; j++) {
-					if (i*windowHeight/rows <= mouseY && mouseY <= (i+1)*(windowHeight/rows )) {
-						System.out.println(mouseX + " " + mouseY);
-						
-						
-						
-					}
-				}
-			}
-		}
+		int indexX = mouseX/pixelWidth;
+		int indexY = mouseY/pixelHeight;
+		
+		pixels[indexX][indexY].color = color;
+		
+//			if (i*windowWidth/cols <= mouseX && mouseX <= (i+1)*(windowWidth/cols)) {
+//				for (int j = 0; j < rows; j++) {
+//					if (i*windowHeight/rows <= mouseY && mouseY <= (i+1)*(windowHeight/rows )) {
+//						System.out.println(mouseX + " " + mouseY);
+//						
+//					}
+//				}
+//			}
 	}
 	
 	@Override
@@ -77,14 +78,12 @@ public class GridPanel extends JPanel{
 			for (int j = 0; j < pixels[i].length; j++) {
 				g.setColor(pixels[i][j].color);
 				g.fillRect(i*windowWidth/cols, j*windowHeight/rows, pixelWidth, pixelHeight);
-				g.fillRect(j*windowWidth/cols, i*windowHeight/rows, pixelWidth, pixelHeight);
-				g.setColor(color);
+				g.setColor(Color.BLACK);
 				g.drawRect(i*windowWidth/cols, j*windowHeight/rows, pixelWidth, pixelHeight);
-				g.drawRect(j*windowWidth/cols, i*windowHeight/rows, pixelWidth, pixelHeight);
 				
 				
-				g.setColor(getBackground());
-				g.fillRect(windowWidth/cols, windowHeight/rows, pixelWidth, pixelHeight);
+//				g.setColor(getBackground());
+//				g.fillRect(windowWidth/cols, windowHeight/rows, pixelWidth, pixelHeight);
 				
 			}
 		}
