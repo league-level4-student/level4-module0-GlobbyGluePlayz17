@@ -7,7 +7,6 @@ public class Cell implements Drawable{
 	
 	private int x;
 	private int y;
-
 	private int cellSize;
 	
 	
@@ -52,20 +51,16 @@ public class Cell implements Drawable{
 	//    draws empty square if cell is dead
 	@Override
 	public void draw(Graphics g) {
-//		if (isAlive == true) {
-//			g.setColor(Color.blue);
-//			g.fillRect(getX(), getY(), cellSize, cellSize);
-//			System.out.println("fill");
-//		} 
-//		if (isAlive == false) {
-//			g.setColor(Color.black);
-//			g.fillRect(getX(), getY(), cellSize, cellSize);
-//			System.out.println("draw");
-//		}
+		if (isAlive == true) {
+			g.setColor(Color.BLUE);
+			g.drawRect(x, y, cellSize, cellSize);
+		} 
+		if (isAlive == false) {
+			g.setColor(Color.BLACK);
+			g.drawRect(x, y, cellSize, cellSize);
+		}
 		
-		
-		
-		
+
 		
 	}
 }

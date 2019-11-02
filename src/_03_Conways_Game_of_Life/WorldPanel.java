@@ -31,20 +31,20 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		//2. Calculate the cell size.
 		cellSize = w/cpr;
 		//3. Initialize the cell array to the appropriate size.
-		cells = new Cell[cellSize][cellSize];
+		cells = new Cell[cpr][cpr];
 		//3. Iterate through the array and initialize each cell.
-		//   Don't forget to consider the cell's dimensions when 
+		//   Don't forget to consider the cell's dimensions when
 		//   passing in the location.
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				cells[i][j] = new Cell(getX(), getY(), cellSize);
+				cells[i][j] = new Cell(i*cellSize, j*cellSize, cellSize);
 			}
 		}
 	}
 	
 	public void randomizeCells() {
 		//4. Iterate through each cell and randomly set each
-		//   cell's isAlive member to true or false
+		//   cell's isAlive member to true or false.
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
 				int bin = new Random().nextInt(2);
@@ -116,17 +116,28 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 				cells[i][j].liveOrDie(getLivingNeighbors(i, j));
 			}
 		}
-		
 		repaint();
 	}
 	
 	//9. Complete the method.
 	//   It returns an int of 8 or less based on how many
-	//   living neighbors there are of the 
+	//   living neighbors there are of the
 	//   cell identified by x and y
 	public int getLivingNeighbors(int x, int y){
-		System.out.println("_-____" + x+y);
-		return x+y;
+		int livingcellpopulation = 0;
+		for (int i = 0; i < cells.length; i++) {
+			for (int i1 = 0; i1 < cells[i1].length; i1++) {
+				if (cells[x][y].isAlive == true) {
+					if (x>0 && y>0) {
+						if (x<cells.length-1 && y<cells[x].length-1) {
+							livingcellpopulation+=1;
+						}
+					}
+				}
+			}
+		}
+		System.out.println(livingcellpopulation);
+		return livingcellpopulation;
 	}
 
 	@Override
@@ -154,7 +165,11 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		int mouseX = e.getX();
 		int mouseY = e.getY();
 		
-		cells[mouseX/cellSize][mouseY/cellSize].isAlive = true;	
+		if (cells[mouseX/cellSize][mouseY/cellSize].isAlive == true) {
+			cells[mouseX/cellSize][mouseY/cellSize].isAlive = false;
+		} else {
+			cells[mouseX/cellSize][mouseY/cellSize].isAlive = true;
+		}
 		
 		repaint();
 	}
