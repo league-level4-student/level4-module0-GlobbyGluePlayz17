@@ -92,7 +92,6 @@ public class ConwaysGameOfLife extends JPanel implements ActionListener{
 			gamePanel.randomizeCells();
 		}else if(e.getSource() == clearButton) {
 			gamePanel.clearCells();
-			System.out.println("celar");
 		}
 	}
 }

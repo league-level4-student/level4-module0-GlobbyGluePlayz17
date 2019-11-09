@@ -64,9 +64,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		//5. Iterate through the cells and set them all to dead.
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				if (cells[i][j].isAlive == false) {
-					cells[i][j].isAlive = false;
-				}
+				cells[i][j].isAlive = false;
 			}
 		}
 		repaint();
@@ -111,7 +109,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		//8. check if each cell should live or die
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				cells[i][j].liveOrDie(getLivingNeighbors(i, j));
+				cells[i][j].liveOrDie(livingNeighbors[i][j]);
 			}
 		}
 		repaint();
@@ -123,45 +121,54 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	//   cell identified by x and y
 	public int getLivingNeighbors(int x, int y){
 		int livingcellpopulation = 0;
-		if (x>0) {
-			if (cells[x-1][y].isAlive == true) {
+		if (x>0 && y>0) {
+			if (cells[x-1][y-1].isAlive) {
 				livingcellpopulation+=1;
-			} 
-			if (y>0) {
-				if (cells[x-1][y-1].isAlive == true) {
-					livingcellpopulation+=1;
-				}
-			} else {
-				if (cells[x][y-1].isAlive == true) {
-					livingcellpopulation+=1;
-				}
-			} 
-		} 
-	
+			}
+		}
+		
+		if (x<cells.length-1 && y<cells[x].length-1) {
+			if (cells[x+1][y+1].isAlive) {
+				livingcellpopulation+=1;
+			}
+		}
+		
+		if (x<cells.length-1 && y>0) {
+			if (cells[x+1][y-1].isAlive) {
+				livingcellpopulation+=1;
+			}
+		}
+		
+		if (x>0 && y<cells[x].length-1) {
+			if (cells[x-1][y+1].isAlive) {
+				livingcellpopulation+=1;
+			}
+		}
+		
+		if (y>0) {
+			if (cells[x][y-1].isAlive) {
+				livingcellpopulation+=1;
+			}
+		}
+		
 		if (x<cells.length-1) {
-			if (cells[x+1][y].isAlive == true) {
+			if (cells[x+1][y].isAlive) {
 				livingcellpopulation+=1;
 			}
+		}
 		
-			if (y<cells[x].length-1) {
-				if (cells[x+1][y+1].isAlive == true) {
-					livingcellpopulation+=1;
-				}
-//				if (cells[x][y+2].isAlive == true) {
-//					livingcellpopulation+=1;
-//				}
-			} else {
-//				if (cells[x][y+1].isAlive == true) {
-//					livingcellpopulation+=1;
-//				}
-			}
-			if (cells[x+2][y].isAlive == true) {
+		if (y<cells[x].length-1) {
+			if (cells[x][y+1].isAlive) {
 				livingcellpopulation+=1;
 			}
-		} 
+		}
 		
+		if (x>0) {
+			if (cells[x-1][y].isAlive) {
+				livingcellpopulation+=1;
+			}
+		}
 		
-		System.out.println(livingcellpopulation);
 		return livingcellpopulation;
 	}
 
