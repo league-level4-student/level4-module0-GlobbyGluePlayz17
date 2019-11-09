@@ -89,15 +89,13 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		//6. Iterate through the cells and draw them all
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				if (cells[i][j].isAlive == false) {
 					cells[i][j].draw(g);
-				}
 			}
 		}		
 		
 		// draws grid
-		g.setColor(Color.BLACK);
-		g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+//		g.setColor(Color.BLACK);
+//		g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
 	}
 	
 	//advances world one step
@@ -125,17 +123,44 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	//   cell identified by x and y
 	public int getLivingNeighbors(int x, int y){
 		int livingcellpopulation = 0;
-		for (int i = 0; i < cells.length; i++) {
-			for (int i1 = 0; i1 < cells[i1].length; i1++) {
-				if (cells[x][y].isAlive == true) {
-					if (x>0 && y>0) {
-						if (x<cells.length-1 && y<cells[x].length-1) {
-							livingcellpopulation+=1;
-						}
-					}
+		if (x>0) {
+			if (cells[x-1][y].isAlive == true) {
+				livingcellpopulation+=1;
+			} 
+			if (y>0) {
+				if (cells[x-1][y-1].isAlive == true) {
+					livingcellpopulation+=1;
 				}
+			} else {
+				if (cells[x][y-1].isAlive == true) {
+					livingcellpopulation+=1;
+				}
+			} 
+		} 
+	
+		if (x<cells.length-1) {
+			if (cells[x+1][y].isAlive == true) {
+				livingcellpopulation+=1;
 			}
-		}
+		
+			if (y<cells[x].length-1) {
+				if (cells[x+1][y+1].isAlive == true) {
+					livingcellpopulation+=1;
+				}
+//				if (cells[x][y+2].isAlive == true) {
+//					livingcellpopulation+=1;
+//				}
+			} else {
+//				if (cells[x][y+1].isAlive == true) {
+//					livingcellpopulation+=1;
+//				}
+			}
+			if (cells[x+2][y].isAlive == true) {
+				livingcellpopulation+=1;
+			}
+		} 
+		
+		
 		System.out.println(livingcellpopulation);
 		return livingcellpopulation;
 	}
