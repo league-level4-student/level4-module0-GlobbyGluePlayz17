@@ -20,7 +20,6 @@ public class MazeDisplay extends JPanel{
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		
 		window = new JFrame();
-		
 		window.add(this);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
